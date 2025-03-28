@@ -8,7 +8,7 @@ const readlineSync = require("readline-sync");
 /**
  * Command-line interface for verifying signatures
  */
-function runCli() {
+async function runCli() {
   console.log("=== Unisat Signature Verifier ===");
   console.log("Works with both mainnet and testnet addresses\n");
 
@@ -18,7 +18,7 @@ function runCli() {
 
   console.log("\nVerifying signature...");
 
-  const isValid = verifySignature(message, signature, address);
+  const isValid = await verifySignature(message, signature, address);
 
   console.log("\n=== Result ===");
   if (isValid) {
@@ -30,7 +30,9 @@ function runCli() {
 
 // Run the CLI if this file is executed directly
 if (require.main === module) {
-  runCli();
+  (async () => {
+    await runCli();
+  })();
 }
 
 // Export the verification function

@@ -25,26 +25,31 @@ const examples = [
 // Run the examples
 console.log("=== Unisat Signature Verification Examples ===\n");
 
-examples.forEach((example, index) => {
-  console.log(`Example ${index + 1}: ${example.name}`);
-  console.log(`Message: ${example.message}`);
-  console.log(`Address: ${example.address}`);
-  console.log(`Signature: ${example.signature.substring(0, 20)}...`);
+const runExamples = async () => {
+  for (let index = 0; index < examples.length; index++) {
+    const example = examples[index];
+    console.log(`Example ${index + 1}: ${example.name}`);
+    console.log(`Message: ${example.message}`);
+    console.log(`Address: ${example.address}`);
+    console.log(`Signature: ${example.signature.substring(0, 20)}...`);
 
-  const isValid = verifySignature(
-    example.message,
-    example.signature,
-    example.address
-  );
+    const isValid = await verifySignature(
+      example.message,
+      example.signature,
+      example.address
+    );
 
-  console.log(`Result: ${isValid ? "✅ Valid" : "❌ Invalid"}`);
-  console.log("-------------------------------------------\n");
-});
+    console.log(`Result: ${isValid ? "✅ Valid" : "❌ Invalid"}`);
+    console.log("-------------------------------------------\n");
+  }
+};
+
+runExamples();
 
 // How to use in your own code
 console.log("How to use in your own code:");
 console.log(`
-const { verifySignature } = require('../lib/verifier');
+const { verifySignature } = require('unisat-signature-verifier');
 
 // Your data
 const message = "Your message";
